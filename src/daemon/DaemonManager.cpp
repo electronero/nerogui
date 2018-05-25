@@ -34,6 +34,12 @@ DaemonManager *DaemonManager::instance(const QStringList *args)
 
 bool DaemonManager::start(const QString &flags, NetworkType::Type nettype, const QString &dataDir, const QString &bootstrapNodeAddress)
 {
+    QString m_monerod;
+#ifdef Q_OS_WIN
+    m_monerod = QApplication::applicationDirPath() + "/electronerod.exe";
+#elif defined(Q_OS_UNIX)
+    m_monerod = QApplication::applicationDirPath() + "/electronerod";
+#endif
     // prepare command line arguments and pass to electronero
     QStringList arguments;
 
