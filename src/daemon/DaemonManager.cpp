@@ -84,7 +84,7 @@ bool DaemonManager::start(const QString &flags, NetworkType::Type nettype, const
     connect (m_daemon, SIGNAL(readyReadStandardOutput()), this, SLOT(printOutput()));
     connect (m_daemon, SIGNAL(readyReadStandardError()), this, SLOT(printError()));
 
-    // Start monerod
+    // Start electronerod
     bool started = m_daemon->startDetached(m_monerod, arguments);
 
     // add state changed listener
