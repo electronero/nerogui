@@ -1,2 +1,2 @@
-var GUI_VERSION = "v0.12.0.0-28-gb9b7c9f"
+var GUI_VERSION = "v0.12.0.0-29-g6ffd58e"
 var GUI_MONERO_VERSION = "59525a24"
