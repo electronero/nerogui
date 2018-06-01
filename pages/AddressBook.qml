@@ -89,7 +89,7 @@ Rectangle {
             Layout.bottomMargin: 17 * scaleRatio
             StandardButton {
                 text: qsTr("Add") + translationManager.emptyString
-                enabled: checkInformation(addressLine.text, paymentIdLine.text, appWindow.persistentSettings.nettype)
+                enabled: checkInformation(addressLine.text, paymentIdLine.text, appWindow.persistentSettings.master)
 
                 onClicked: {
                     if (!currentWallet.addressBook.addRow(addressLine.text.trim(), paymentIdLine.text.trim(), descriptionLine.text)) {
@@ -149,13 +149,13 @@ Rectangle {
         }
     }
 
-    function checkInformation(address, payment_id, nettype) {
+    function checkInformation(address, payment_id, master) {
       address = address.trim()
       payment_id = payment_id.trim()
 
-      var address_ok = walletManager.addressValid(address, nettype)
+      var address_ok = walletManager.addressValid(address, master)
       var payment_id_ok = payment_id.length == 0 || walletManager.paymentIdValid(payment_id)
-      var ipid = walletManager.paymentIdFromAddress(address, nettype)
+      var ipid = walletManager.paymentIdFromAddress(address, master)
       if (ipid.length > 0 && payment_id.length > 0)
          payment_id_ok = false
 

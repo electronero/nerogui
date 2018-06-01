@@ -136,7 +136,7 @@ Rectangle {
                         walletManager.closeWallet();
                         walletManager.clearWalletCache(persistentSettings.wallet_path);
                         walletManager.openWalletAsync(persistentSettings.wallet_path, appWindow.walletPassword,
-                                                          persistentSettings.nettype);
+                                                          persistentSettings.master);
                     }
 
                     confirmationDialog.onRejectedCallback = null;
@@ -378,7 +378,7 @@ Rectangle {
                 visible: true
                 text: qsTr("Show status") + translationManager.emptyString
                 onClicked: {
-                    daemonManager.sendCommand("status",currentWallet.nettype);
+                    daemonManager.sendCommand("status",currentWallet.master);
                     daemonConsolePopup.open();
                 }
             }
@@ -687,7 +687,7 @@ Rectangle {
                         walletManager.closeWallet();
                         walletManager.clearWalletCache(persistentSettings.wallet_path);
                         walletManager.openWalletAsync(persistentSettings.wallet_path, appWindow.walletPassword,
-                                                          persistentSettings.nettype);
+                                                          persistentSettings.master);
                     }
 
                     confirmationDialog.onRejectedCallback = null;

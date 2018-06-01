@@ -31,7 +31,7 @@ class Wallet : public QObject
     Q_PROPERTY(QString seed READ getSeed)
     Q_PROPERTY(QString seedLanguage READ getSeedLanguage)
     Q_PROPERTY(Status status READ status)
-    Q_PROPERTY(NetworkType::Type nettype READ nettype)
+    Q_PROPERTY(NetworkType::Type master READ master)
 //    Q_PROPERTY(ConnectionStatus connected READ connected)
     Q_PROPERTY(quint32 currentSubaddressAccount READ currentSubaddressAccount)
     Q_PROPERTY(bool synchronized READ synchronized)
@@ -85,7 +85,7 @@ public:
     Status status() const;
 
     //! returns network type of the wallet.
-    NetworkType::Type nettype() const;
+    NetworkType::Type master() const;
 
     //! returns whether the wallet is connected, and version status
     Q_INVOKABLE ConnectionStatus connected(bool forceCheck = false);

@@ -51,8 +51,8 @@ ColumnLayout {
             autoDonationAmount = wizard.settings["auto_donations_amount"] + " %",
             backgroundMiningEnabled = wizard.settings["allow_background_mining"] === true,
             backgroundMiningText = backgroundMiningEnabled ? qsTr("Enabled") : qsTr("Disabled"),
-            nettype = appWindow.persistentSettings.nettype,
-            networkText = nettype == NetworkType.TESTNET ? qsTr("Testnet") : nettype == NetworkType.STAGENET ? qsTr("Stagenet") : qsTr("Mainnet"),
+            master = appWindow.persistentSettings.master,
+            networkText = master == NetworkType.TESTNET ? qsTr("Testnet") : master == NetworkType.STAGENET ? qsTr("Stagenet") : qsTr("Mainnet"),
             restoreHeightEnabled = wizard.settings['restore_height'] !== undefined;
 
         return "<table>"

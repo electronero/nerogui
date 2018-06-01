@@ -33,30 +33,30 @@ public:
     static WalletManager * instance();
     // wizard: createWallet path;
     Q_INVOKABLE Wallet * createWallet(const QString &path, const QString &password,
-                                      const QString &language, NetworkType::Type nettype = NetworkType::MAINNET);
+                                      const QString &language, NetworkType::Type master = NetworkType::MAINNET);
 
     /*!
      * \brief openWallet - opens wallet by given path
      * \param path       - wallet filename
      * \param password   - wallet password. Empty string in wallet isn't password protected
-     * \param nettype    - type of network the wallet is running on
+     * \param master    - type of network the wallet is running on
      * \return wallet object pointer
      */
-    Q_INVOKABLE Wallet * openWallet(const QString &path, const QString &password, NetworkType::Type nettype = NetworkType::MAINNET);
+    Q_INVOKABLE Wallet * openWallet(const QString &path, const QString &password, NetworkType::Type master = NetworkType::MAINNET);
 
     /*!
      * \brief openWalletAsync - asynchronous version of "openWallet". Returns immediately. "walletOpened" signal
      *                          emitted when wallet opened;
      */
-    Q_INVOKABLE void openWalletAsync(const QString &path, const QString &password, NetworkType::Type nettype = NetworkType::MAINNET);
+    Q_INVOKABLE void openWalletAsync(const QString &path, const QString &password, NetworkType::Type master = NetworkType::MAINNET);
 
     // wizard: recoveryWallet path; hint: internally it recorvers wallet and set password = ""
     Q_INVOKABLE Wallet * recoveryWallet(const QString &path, const QString &memo,
-                                       NetworkType::Type nettype = NetworkType::MAINNET, quint64 restoreHeight = 0);
+                                       NetworkType::Type master = NetworkType::MAINNET, quint64 restoreHeight = 0);
 
     Q_INVOKABLE Wallet * createWalletFromKeys(const QString &path,
                                               const QString &language,
-                                              NetworkType::Type nettype,
+                                              NetworkType::Type master,
                                               const QString &address,
                                               const QString &viewkey,
                                               const QString &spendkey = "",
@@ -100,10 +100,10 @@ public:
     Q_INVOKABLE QString maximumAllowedAmountAsSting() const;
 
     Q_INVOKABLE bool paymentIdValid(const QString &payment_id) const;
-    Q_INVOKABLE bool addressValid(const QString &address, NetworkType::Type nettype) const;
-    Q_INVOKABLE bool keyValid(const QString &key, const QString &address, bool isViewKey, NetworkType::Type nettype) const;
+    Q_INVOKABLE bool addressValid(const QString &address, NetworkType::Type master) const;
+    Q_INVOKABLE bool keyValid(const QString &key, const QString &address, bool isViewKey, NetworkType::Type master) const;
 
-    Q_INVOKABLE QString paymentIdFromAddress(const QString &address, NetworkType::Type nettype) const;
+    Q_INVOKABLE QString paymentIdFromAddress(const QString &address, NetworkType::Type master) const;
 
     Q_INVOKABLE void setDaemonAddress(const QString &address);
     Q_INVOKABLE bool connected() const;

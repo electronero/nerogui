@@ -124,7 +124,7 @@ Window {
                 placeholderText: qsTr("command + enter (e.g help)") + translationManager.emptyString
                 onAccepted: {
                     if(text.length > 0)
-                        daemonManager.sendCommand(text,currentWallet.nettype);
+                        daemonManager.sendCommand(text,currentWallet.master);
                     text = ""
                 }
             }

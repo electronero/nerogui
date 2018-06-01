@@ -406,7 +406,7 @@ ListView {
                             return;
                         }
 
-                        var checked = (TxUtils.checkTxID(hash) && TxUtils.checkAddress(address, appWindow.persistentSettings.nettype));
+                        var checked = (TxUtils.checkTxID(hash) && TxUtils.checkAddress(address, appWindow.persistentSettings.master));
                         if(!checked){
                             console.log('getProof: Error checking TxId and/or address');
                         }

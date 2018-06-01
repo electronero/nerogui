@@ -120,8 +120,8 @@ Rectangle {
 
                 Text {
                     id: testnetLabel
-                    visible: persistentSettings.nettype != NetworkType.MAINNET
-                    text: (persistentSettings.nettype == NetworkType.TESTNET ? qsTr("Testnet") : qsTr("Stagenet")) + translationManager.emptyString
+                    visible: persistentSettings.master != NetworkType.MAINNET
+                    text: (persistentSettings.master == NetworkType.TESTNET ? qsTr("Testnet") : qsTr("Stagenet")) + translationManager.emptyString
                     anchors.top: parent.top
                     anchors.topMargin: 8
                     anchors.left: parent.left

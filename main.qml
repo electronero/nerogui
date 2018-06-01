@@ -73,7 +73,7 @@ ApplicationWindow {
     property bool remoteNodeConnected: false
     property bool androidCloseTapped: false;
     // Default daemon addresses
-    readonly property string localDaemonAddress : persistentSettings.nettype == NetworkType.MAINNET ? "localhost:44081" : persistentSettings.nettype == NetworkType.TESTNET ? "localhost:33081" : "localhost:30080"
+    readonly property string localDaemonAddress : persistentSettings.master == NetworkType.MAINNET ? "localhost:44081" : persistentSettings.master == NetworkType.TESTNET ? "localhost:33081" : "localhost:30080"
     property string currentDaemonAddress;
     property bool startLocalNodeCancelled: false
 
@@ -232,9 +232,9 @@ ApplicationWindow {
             if(isIOS)
                 wallet_path = moneroAccountsDir + wallet_path;
             // console.log("opening wallet at: ", wallet_path, "with password: ", appWindow.walletPassword);
-            console.log("opening wallet at: ", wallet_path, ", network type: ", persistentSettings.nettype == NetworkType.MAINNET ? "mainnet" : persistentSettings.nettype == NetworkType.TESTNET ? "testnet" : "stagenet");
+            console.log("opening wallet at: ", wallet_path, ", network type: ", persistentSettings.master == NetworkType.MAINNET ? "mainnet" : persistentSettings.master == NetworkType.TESTNET ? "testnet" : "stagenet");
             walletManager.openWalletAsync(wallet_path, walletPassword,
-                                              persistentSettings.nettype);
+                                              persistentSettings.master);
         }
 
         // Hide titlebar based on persistentSettings.customDecorations
@@ -294,9 +294,9 @@ ApplicationWindow {
         viewOnly = currentWallet.viewOnly;
 
         // New wallets saves the testnet flag in keys file.
-        if(persistentSettings.nettype != currentWallet.nettype) {
+        if(persistentSettings.master != currentWallet.master) {
             console.log("Using network type from keys file")
-            persistentSettings.nettype = currentWallet.nettype;
+            persistentSettings.master = currentWallet.master;
         }
 
         // connect handlers
@@ -357,7 +357,7 @@ ApplicationWindow {
         middlePanel.transferView.updatePriorityDropdown();
 
         // If wallet isnt connected and no daemon is running - Ask
-        if(!isMobile && walletManager.isDaemonLocal(appWindow.persistentSettings.daemon_address) && !walletInitialized && status === Wallet.ConnectionStatus_Disconnected && !daemonManager.running(persistentSettings.nettype)){
+        if(!isMobile && walletManager.isDaemonLocal(appWindow.persistentSettings.daemon_address) && !walletInitialized && status === Wallet.ConnectionStatus_Disconnected && !daemonManager.running(persistentSettings.master)){
             daemonManagerDialog.open();
         }
         // initialize transaction history once wallet is initialized first time;
@@ -495,13 +495,13 @@ ApplicationWindow {
         currentWallet.pauseRefresh();
 
         appWindow.showProcessingSplash(qsTr("Waiting for daemon to start..."))
-        daemonManager.start(flags, persistentSettings.nettype, persistentSettings.blockchainDataDir, persistentSettings.bootstrapNodeAddress);
+        daemonManager.start(flags, persistentSettings.master, persistentSettings.blockchainDataDir, persistentSettings.bootstrapNodeAddress);
         persistentSettings.daemonFlags = flags
     }
 
     function stopDaemon(){
         appWindow.showProcessingSplash(qsTr("Waiting for daemon to stop..."))
-        daemonManager.stop(persistentSettings.nettype);
+        daemonManager.stop(persistentSettings.master);
     }
 
     function onDaemonStarted(){
@@ -1018,8 +1018,8 @@ ApplicationWindow {
         property int    auto_donations_amount : 50
         property bool   allow_background_mining : false
         property bool   miningIgnoreBattery : true
-        property var    nettype: NetworkType.MAINNET
-        property string daemon_address: nettype == NetworkType.TESTNET ? "localhost:44081" : nettype == NetworkType.STAGENET ? "localhost:33081" : "localhost:30080"
+        property var    master: NetworkType.MAINNET
+        property string daemon_address: master == NetworkType.TESTNET ? "localhost:44081" : master == NetworkType.STAGENET ? "localhost:33081" : "localhost:30080"
         property string payment_id
         property int    restore_height : 0
         property bool   is_recovering : false
@@ -1673,7 +1673,7 @@ ApplicationWindow {
         }
 
         // If daemon is running - prompt user before exiting
-        if(typeof daemonManager != "undefined" && daemonManager.running(persistentSettings.nettype)) {
+        if(typeof daemonManager != "undefined" && daemonManager.running(persistentSettings.master)) {
 
             // Show confirmation dialog
             confirmationDialog.title = qsTr("Daemon is running") + translationManager.emptyString;
@@ -1685,7 +1685,7 @@ ApplicationWindow {
             }
 
             confirmationDialog.onRejectedCallback = function() {
-                daemonManager.stop(persistentSettings.nettype);
+                daemonManager.stop(persistentSettings.master);
                 closeAccepted();
             };
 

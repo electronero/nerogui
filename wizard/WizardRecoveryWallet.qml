@@ -76,7 +76,7 @@ ColumnLayout {
     }
 
     function recoveryWallet(settingsObject, fromSeed) {
-        var nettype = appWindow.persistentSettings.nettype;
+        var master = appWindow.persistentSettings.master;
         var restoreHeight = settingsObject.restore_height;
         var tmp_wallet_filename = oshelper.temporaryFilename()
         console.log("Creating temporary wallet", tmp_wallet_filename)
@@ -89,9 +89,9 @@ ColumnLayout {
 
         // From seed or keys
         if(fromSeed)
-            var wallet = walletManager.recoveryWallet(tmp_wallet_filename, settingsObject.words, nettype, restoreHeight)
+            var wallet = walletManager.recoveryWallet(tmp_wallet_filename, settingsObject.words, master, restoreHeight)
         else
-            var wallet = walletManager.createWalletFromKeys(tmp_wallet_filename, settingsObject.wallet_language, nettype,
+            var wallet = walletManager.createWalletFromKeys(tmp_wallet_filename, settingsObject.wallet_language, master,
                                                             settingsObject.recover_address, settingsObject.recover_viewkey,
                                                             settingsObject.recover_spendkey, restoreHeight)
 

@@ -265,7 +265,7 @@ Rectangle {
                   if (result) {
                     var parts = result.split("|")
                     if (parts.length == 2) {
-                      var address_ok = walletManager.addressValid(parts[1], appWindow.persistentSettings.nettype)
+                      var address_ok = walletManager.addressValid(parts[1], appWindow.persistentSettings.master)
                       if (parts[0] === "true") {
                         if (address_ok) {
                           addressLine.text = parts[1]
@@ -345,7 +345,7 @@ Rectangle {
                   }
                   
                   // The transactional information is correct
-                  if(!pageRoot.checkInformation(amountLine.text, addressLine.text, paymentIdLine.text, appWindow.persistentSettings.nettype)){
+                  if(!pageRoot.checkInformation(amountLine.text, addressLine.text, paymentIdLine.text, appWindow.persistentSettings.master)){
                       return false;
                   }
                   
@@ -370,14 +370,14 @@ Rectangle {
           }
       }
 
-      function checkInformation(amount, address, payment_id, nettype) {
+      function checkInformation(amount, address, payment_id, master) {
         address = address.trim()
         payment_id = payment_id.trim()
 
         var amount_ok = amount.length > 0
-        var address_ok = walletManager.addressValid(address, nettype)
+        var address_ok = walletManager.addressValid(address, master)
         var payment_id_ok = payment_id.length == 0 || walletManager.paymentIdValid(payment_id)
-        var ipid = walletManager.paymentIdFromAddress(address, nettype)
+        var ipid = walletManager.paymentIdFromAddress(address, master)
         if (ipid.length > 0 && payment_id.length > 0)
            payment_id_ok = false
 
@@ -486,7 +486,7 @@ Rectangle {
                 id: saveTxButton
                 text: qsTr("Create tx file") + translationManager.emptyString
                 visible: appWindow.viewOnly
-                enabled: pageRoot.checkInformation(amountLine.text, addressLine.text, paymentIdLine.text, appWindow.persistentSettings.nettype)
+                enabled: pageRoot.checkInformation(amountLine.text, addressLine.text, paymentIdLine.text, appWindow.persistentSettings.master)
                 small: true
                 onClicked: {
                     console.log("Transfer: saveTx Clicked")
