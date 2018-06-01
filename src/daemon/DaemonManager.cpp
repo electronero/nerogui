@@ -34,6 +34,17 @@ DaemonManager *DaemonManager::instance(const QStringList *args)
 
 bool DaemonManager::start(const QString &flags, NetworkType::Type nettype, const QString &dataDir, const QString &bootstrapNodeAddress)
 {
+    // Platform depetent path to electronerod
+#ifdef Q_OS_WIN
+    m_monerod = QApplication::applicationDirPath() + "/electronerod.exe";
+#elif defined(Q_OS_UNIX)
+    m_monerod = QApplication::applicationDirPath() + "/electronerod";
+#endif
+
+    if (m_monerod.length() == 0) {
+        qCritical() << "no daemon binary defined for current platform";
+        m_has_daemon = false;
+    }
     // prepare command line arguments and pass to electronero
     QStringList arguments;
 
