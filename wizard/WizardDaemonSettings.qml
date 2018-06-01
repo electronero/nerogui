@@ -111,7 +111,7 @@ ColumnLayout {
             color: "#484545"
             textFormat: Text.RichText
 //            horizontalAlignment: Text.AlignHCenter
-            text: qsTr("To be able to communicate with the Monero network your wallet needs to be connected to a Monero node. For best privacy it's recommended to run your own node. \
+            text: qsTr("To be able to communicate with the Monero network your wallet needs to be connected to a Electronero node. For best privacy it's recommended to run your own node. \
                         <br><br> \
                         If you don't have the option to run an own node there's an option to connect to a remote node.")
                     + translationManager.emptyString
@@ -196,7 +196,7 @@ ColumnLayout {
                 daemonPortText: {
                     var node_split = persistentSettings.bootstrapNodeAddress.split(":");
                     if(node_split.length == 2){
-                        (node_split[1].trim() == "") ? "28888" : node_split[1];
+                        (node_split[1].trim() == "") ? "44081" : node_split[1];
                     } else {
                         return ""
                     }
