@@ -1,5 +1,5 @@
 #!/bin/bash
-MONERO_URL=git@github.com:electronero/electronero.git
+MONERO_URL=https://github.com/electronero/electronero.git
 MONERO_BRANCH=boost-patch
 
 pushd $(pwd)
